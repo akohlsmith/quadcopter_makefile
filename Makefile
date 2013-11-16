@@ -1,6 +1,6 @@
 # Sources
 
-SRCS = main.c stm32f4xx_it.c system_stm32f4xx.c syscalls.c MPU6050.c communication.c
+SRCS = main.c stm32f4xx_it.c system_stm32f4xx.c syscalls.c MPU6050.c communication.c stabilisation.c motorControl.c
 
 # USB
 SRCS += usbd_usr.c usbd_cdc_vcp.c usbd_desc.c usb_bsp.c
