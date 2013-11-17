@@ -145,9 +145,10 @@ int main(void) {
 			 kalAngleY,
 			 kal[2]);
 			 */
-			printf("AccX:$%f$, AccY:$%f$ KalX:$%f$, KalY:$%f$\r\n",
-					accXangle - 180, accYangle - 180, kalAngleX - 180,
-					kalAngleY - 180);
+//			printf("AccX:$%f$, AccY:$%f$ KalX:$%f$, KalY:$%f$\r\n",
+//					accXangle - 180, accYangle - 180, kalAngleX - 180,
+//					kalAngleY - 180);
+			//printf("%d, %d, %d, %d\r\n",rc_channel[RC_SPEED],rc_channel[RC_PITCH],rc_channel[RC_ROLL],rc_channel[RC_YAW]);
 		}
 	} else {
 		// connection faile
@@ -371,7 +372,7 @@ void init_USART1(uint32_t baudrate) {
 
 // this is the interrupt request handler (IRQ) for ALL USART1 interrupts
 void USART1_IRQHandler(void) {
-
+		static uint16_t i = 0;
         // check if the USART1 receive interrupt flag was set
         if (USART_GetITStatus(USART1, USART_IT_RXNE)) {
 
@@ -381,9 +382,10 @@ void USART1_IRQHandler(void) {
                 char t = USART1->DR; // the character from the USART1 data register is saved in t
                 received_string[cnt] = t;
                 cnt++;
-                if(cnt >= 4){
-                  memcpy(&rcvd[k],&received_string,4);
+                if(cnt >= CMD_SIZE){
+                  memcpy(&rcvd[k],&received_string,CMD_SIZE);
                   analyseString(k);
+                  printf("%.5d: %d, %d, %d, %d\r\n",i++,received_string[0],received_string[1],received_string[2],received_string[3]);
                   cnt = 0;
                   k++;
                   if(k >= CMD_HISTORY_SIZE)k=0;

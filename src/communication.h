@@ -4,6 +4,7 @@
 
 #include <stdint.h>
 
+#define CMD_SIZE 5
 #define CMD_HISTORY_SIZE 20
 #define MAX_CMD_SIZE 16
 
